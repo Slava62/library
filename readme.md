@@ -1,0 +1,1 @@
+To test the library application library-readers should be started

@@ -21,12 +21,12 @@ class LibraryApplicationTests {
     void getRemoteReaderTest() {
         RestTemplate restTemplate = new RestTemplate();
         Reader expected = new Reader();
-        expected.setId(1L);
-        expected.setName("Nasha Masha");
-        expected.setCardid(12345L);
+        //expected.setId(1L);
+        expected.setName("Robert Smith");
+        expected.setCardid(10045L);
         Assertions.assertEquals(200, restTemplate.postForEntity("http://localhost:8080/readers/",expected,Reader.class).getStatusCode().value());
         List<Reader> actualCollection = restTemplate.getForObject("http://localhost:8080/readers", ArrayList.class);
-        int lastIndex = actualCollection.size()-1;
+        int lastIndex = actualCollection.size();
         Reader actual = restTemplate.getForObject("http://localhost:8080/readers/"+lastIndex, Reader.class);
         Assertions.assertTrue(expected.equals(actual));
         System.out.println("Name:    " + actual.getName());
