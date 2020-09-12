@@ -22,7 +22,8 @@ public class Book implements Serializable {
     }
 
 
-    public Book(String caption, Long authorId, BookStatus bookStatus) {
+    public Book(Long bookId,String caption, Long authorId, BookStatus bookStatus) {
+        this.id=bookId;
         this.caption = caption;
         this.authorId = authorId;
         this.bookStatus = bookStatus;

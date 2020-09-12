@@ -2,27 +2,101 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h1>
-    LibraryReadersApplication
+    Library-Application
 </h1>
 <form name="form1"> Input text:<br />
-    <input id="readerid" valie="1"></input> <br />
-    <input id="reader-name" valie=""></input> <br />
-    <input id="reader-cardid" valie="0"></input> <br />
-    <input id="sendButton" type="button" value="Send text" onclick="sendText()"/> </form>
+    <label for="author-id">Author Id:</label>
+    <input id="author-id" valie="1" type="text"></input><br />
+    <label for="author-name">Author name:</label>
+    <input id="author-name" valie="" type="text"></input> <br />
+    <div>
+    <input id="addAuthorButton" type="button" value="Add author" onclick="addAuthor()"/>
+   
+<input id="updateAuthorButton" type="button" value="Update" onclick="updateAuthor()"/>
+    
+    <input id="deleteAuthorButton" type="button" value="Delete" onclick="deleteAuthor()"/> 
+        
+        <input id="showAuthorsButton" type="button" value="Show All" onclick="showAllAuthors()"/>
+ 
+    <input id="showAuthorByIdButton" type="button" value="Show by ID" onclick="showAuthorById()"/>
+    </form>
+</div>
 <textarea id="responce-text" cols="80" rows="10"></textarea> <br />
 <script>
-    function sendText() {
-        var r_id = document.getElementById("readerid").value;
-        var r_name = document.getElementById("reader-name").value;
-        var r_cardid = document.getElementById("reader-cardid").value;
+    function showAuthorById(){
+        var r_id = document.getElementById("author-id").value;
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("GET", "/authors/" + r_id);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // var responce = JSON.parse(xmlhttp.responseText);
+                var html = '';
+                html = html + xmlhttp.responseText;
+                document.getElementById("responce-text").innerHTML = html;
+            }
+        };
+    }
+    function showAllAuthors(){
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("GET", "/authors");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // var responce = JSON.parse(xmlhttp.responseText);
+                var html = '';
+                html = html + xmlhttp.responseText;
+                document.getElementById("responce-text").innerHTML = html;
+            }
+        };
+    }
+    function deleteAuthor(){
+        var r_id = document.getElementById("author-id").value;
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("DELETE", "/authors/" + r_id);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                // var responce = JSON.parse(xmlhttp.responseText);
+                var html = '';
+                html = html + xmlhttp.responseText;
+                document.getElementById("responce-text").innerHTML = html;
+            }
+        };
+    }
+    function updateAuthor() {
+        var r_id = document.getElementById("author-id").value;
+        var r_name = document.getElementById("author-name").value;
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("POST", "/readers");
+        xmlhttp.open("PUT", "/authors/" + r_id);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({id: r_id, name: r_name, cardid: r_cardid}));
+        xmlhttp.send(JSON.stringify({id: r_id, name: r_name}));
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               // var responce = JSON.parse(xmlhttp.responseText);
+                var html = '';
+                html = html + xmlhttp.responseText;
+                document.getElementById("responce-text").innerHTML = html;
+            }
+        };
+    }
+    function addAuthor() {
+       // var r_id = document.getElementById("author-id").value;
+        var r_name = document.getElementById("author-name").value;
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("POST", "/authors");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({ name: r_name})); //id: r_id,
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {

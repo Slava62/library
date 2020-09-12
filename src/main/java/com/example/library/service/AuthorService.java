@@ -5,53 +5,58 @@ import com.example.library.model.Author;
 import com.example.library.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
-public class AuthorService {
+public class AuthorService implements CRUDService<Author>{
 
     @Autowired
     AuthorRepository authorRepository;
 
-
-    public Author createAuthor(Author author) {
+    @Override
+    public Author create(Author author) {
         return authorRepository.save(author);
     }
-
-    public Author updateAuthor(Author author, Long id){
+    @Override
+    public Author update(Author author, Long id){
         Optional<Author> authorDb = this.authorRepository.findById(id);
 
         if (authorDb.isPresent()) {
             Author authorUpdate = authorDb.get();
-           // authorUpdate.setId(author.getId());
             authorUpdate.setName(author.getName());
             authorRepository.save(authorUpdate);
             return authorUpdate;
         } else {
-            throw new ResourceNotFoundException("Record not found with id : " + author.getId().toString());
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO,"Record not found with id : " + id);
+            return new Author(0L,"Unknown author");
+            // throw new ResourceNotFoundException("Record not found with id : " + author.getId().toString());
         }
     }
-
-    public Author getAuthorById(Long authorId) {
+    @Override
+    public Author getById(Long authorId) {
         Optional <Author> authorDb = this.authorRepository.findById(authorId);
         if (authorDb.isPresent()) {
             return authorDb.get();
         } else {
-            throw new ResourceNotFoundException("Record not found with id : " + authorId);
+            Logger.getLogger(this.getClass().getName()).log(Level.INFO,"Record not found with id : " + authorId);
+            return new Author(0L,"Unknown author");
+            //throw new ResourceNotFoundException("Record not found with id : " + authorId);
         }
     }
-    public List<Author> getAllReaders() {
+    @Override
+    public List<Author> getAll() {
         return this.authorRepository.findAll();
     }
+    @Override
+    public void delete(Long authorId) {
+        Optional <Author> authorDb = this.authorRepository.findById(authorId);
 
-    public void deleteReader(Long authorId) {
-        Optional <Author> productDb = this.authorRepository.findById(authorId);
-
-        if (productDb.isPresent()) {
-            this.authorRepository.delete(productDb.get());
+        if (authorDb.isPresent()) {
+            this.authorRepository.delete(authorDb.get());
         } else {
             throw new ResourceNotFoundException("Record not found with id : " + authorId);
         }
