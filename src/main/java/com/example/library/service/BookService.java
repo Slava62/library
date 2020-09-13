@@ -31,6 +31,8 @@ public class BookService implements CRUDService<Book> {
         if (bookDb.isPresent()) {
             Book bookUpdate = bookDb.get();
             bookUpdate.setCaption(book.getCaption());
+            bookUpdate.setAuthorId(book.getAuthorId());
+            bookUpdate.setBookStatus(book.getBookStatus());
             bookRepository.save(bookUpdate);
             return bookUpdate;
         } else {
