@@ -3,111 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <script src="./js/author.js" type="text/javascript"></script>
+    <script src="./js/book.js" type="text/javascript"></script>
+    <script src="./js/card.js" type="text/javascript"></script>
 </head>
-<body>
+<body class="container">
 <h1>
     Library-Application
 </h1>
-<form name="form1"> Input text:<br />
+
+<div class="col-xs-4 your-form-selector">
+<form name="author" class=""><h2>Authors' handling:</h2>
+   <div class="row">
+   <div class="col-xs-12">
     <label for="author-id">Author Id:</label>
-    <input id="author-id" valie="1" type="text"></input><br />
-    <label for="author-name">Author name:</label>
-    <input id="author-name" valie="" type="text"></input> <br />
-    <div>
-    <input id="addAuthorButton" type="button" value="Add author" onclick="addAuthor()"/>
-   
-<input id="updateAuthorButton" type="button" value="Update" onclick="updateAuthor()"/>
+    <input id="author-id" value=1 type="number" min=1 class="input-group"></input>
+    </div></div>
+    <div class="row">
+    <div class="col-xs-12">
+   <label for="author-name">Author name:</label>
+    <input id="author-name" value="" type="text" class="input-group"></input> 
+    </div>
     
-    <input id="deleteAuthorButton" type="button" value="Delete" onclick="deleteAuthor()"/> 
-        
-        <input id="showAuthorsButton" type="button" value="Show All" onclick="showAllAuthors()"/>
+    </div>
+    
+    <div class="row"><div class="col-xs-12">
+    <input id="addAuthorButton" type="button" value="Add author" onclick="addAuthor()"/>
  
-    <input id="showAuthorByIdButton" type="button" value="Show by ID" onclick="showAuthorById()"/>
-    </form>
-</div>
-<textarea id="responce-text" cols="80" rows="10"></textarea> <br />
-<script>
-    function showAuthorById(){
-        var r_id = document.getElementById("author-id").value;
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("GET", "/authors/" + r_id);
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-text").innerHTML = html;
-            }
-        };
-    }
-    function showAllAuthors(){
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("GET", "/authors");
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-text").innerHTML = html;
-            }
-        };
-    }
-    function deleteAuthor(){
-        var r_id = document.getElementById("author-id").value;
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("DELETE", "/authors/" + r_id);
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-text").innerHTML = html;
-            }
-        };
-    }
-    function updateAuthor() {
-        var r_id = document.getElementById("author-id").value;
-        var r_name = document.getElementById("author-name").value;
+    <input id="updateAuthorButton" type="button" value="Update" onclick="updateAuthor()"/>
 
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("PUT", "/authors/" + r_id);
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({id: r_id, name: r_name}));
+    <input id="deleteAuthorButton" type="button" value="Delete" onclick="deleteAuthor()"/> 
+       
+    <input id="showAuthorsButton" type="button" value="Show All" onclick="showAllAuthors()"/>
 
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-text").innerHTML = html;
-            }
-        };
-    }
-    function addAuthor() {
-       // var r_id = document.getElementById("author-id").value;
-        var r_name = document.getElementById("author-name").value;
+        <input id="showAuthorByIdButton" type="button" value="Show by ID" onclick="showAuthorById()"/></div></div>
+    
+<div class="row"> <div class="col-xs-12">
+<textarea id="responce-author-text" form="author" class=""rows="10"></textarea> <!--cols="80"-->
+    </div></div></form></div>
+    
+    
+    
+<div class="col-xs-4 your-form-selector">
+<form name="books"><h2>Books' handling:</h2>
+   <div class="row">
+   <div class="col-xs-12">
+    <label for="book-id">Book Id:</label>
+    <input id="book-id" value=1 type="number" min="1" class="input-group"></input>
+    </div></div>
+    <div class="row">
+    <div class="col-xs-12">
+   <label for="book-caption">Book caption:</label>
+    <input id="book-caption" value="" type="text" class="input-group"></input> 
+    </div>
+    
+    </div>
+    
+     <div class="row">
+    <div class="col-xs-12">
+   <label for="book-authorId">Book authorId:</label>
+    <input id="book-authorId" value=1 type="number" min="1" class="input-group"></input> 
+    </div>
+    
+    </div>
+    
+      <div class="row">
+    <div class="col-xs-12">
+   <label for="book-status">Book status (0 or 1):</label>
+    <input id="book-status" value=0 type="number" min="0" max="1" class="input-group"></input> 
+    </div>
+    
+    </div>
+    
+    <div class="row"><div class="col-xs-12">
+    <input id="addBookButton" type="button" value="Add book" onclick="addBook()"/>
+   
+    <input id="updateBookButton" type="button" value="Update" onclick="updateBook()"/>
+    
+    <input id="deleteBookButton" type="button" value="Delete" onclick="deleteBook()"/> 
+        
+    <input id="showBookButton" type="button" value="Show All" onclick="showAllBooks()"/>
+ 
+        <input id="showBookByIdButton" type="button" value="Show by ID" onclick="showBookById()"/></div></div>
+    
+<div class="row"> <div class="col-xs-12">
+<textarea id="responce-book-text" form="books" class=""rows="10"></textarea> <!--cols="80"-->
+    </div></div></form></div>
+    
+    <div class="col-xs-4 your-form-selector">
+<form name="cards" class=""><h2>Cards' handling:</h2>
+   <div class="row">
+   <div class="col-xs-12">
+    <label for="card-book-id">Book Id:</label>
+    <input id="card-book-id" value=1 type="number" min=1 class="input-group"></input>
+    </div></div>
+    <div class="row">
+    <div class="col-xs-12">
+   <label for="card-reader-id">Reader Id:</label>
+    <input id="card-reader-id" value=1 type="number" min=1 class="input-group"></input> 
+    </div>
+    
+    </div>
+    
+    <div class="row"><div class="col-xs-12">
+    <input id="addCardButton" type="button" value="Add card" onclick="addCard()"/>
+ 
+    <input id="updateCardButton" type="button" value="Update" onclick="updateCard()"/>
 
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("POST", "/authors");
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({ name: r_name})); //id: r_id,
+    <input id="deleteCardButton" type="button" value="Delete" onclick="deleteCard()"/> 
+       
+    <input id="showCardButton" type="button" value="Show All" onclick="showAllCards()"/>
 
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-text").innerHTML = html;
-            }
-        };
-    }
-
-</script>
+        <input id="showCardByIdButton" type="button" value="Show by ID" onclick="showCardById()"/></div></div>
+    
+<div class="row"> <div class="col-xs-12">
+<textarea id="responce-card-text" form="cards" class=""rows="10"></textarea> <!--cols="80"-->
+    </div></div></form></div>
 </body>
 </html>
