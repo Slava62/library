@@ -2,10 +2,7 @@ package com.example.library.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,7 +10,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Reader implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  // @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Long cardid;

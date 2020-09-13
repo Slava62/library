@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 public class ReaderController {
-    private final String path="/readers";
+    private final String path="/libreaders";
 
     @Autowired
     ReaderService readerService;
