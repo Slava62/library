@@ -44,7 +44,10 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <textarea id="responce-author-text" class="" rows="10"></textarea> <!--cols="80"-->
+                <select  id="author-list" class="input-group" onclick="selectAuthorList()">
+                    <option></option>
+                </select>
+<!--                <textarea id="responce-author-text" class="" rows="10"></textarea> &lt;!&ndash;cols="80"&ndash;&gt;-->
             </div>
         </div>
     </form>
@@ -96,11 +99,11 @@
                 <input id="showBookByIdButton" type="button" value="Show by ID" onclick="showBookById()"/></div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <textarea id="responce-book-text" class="" rows="10"></textarea> <!--cols="80"-->
-            </div>
-        </div>
+        <div class="row"> <div class="col-xs-12">
+            <select  id="book-list" class="input-group" onclick="selectBookList()">
+                <option></option>
+            </select>
+        </div></div>
     </form>
 </div>
 

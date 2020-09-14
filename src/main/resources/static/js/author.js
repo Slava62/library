@@ -6,10 +6,8 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-author-text").innerHTML = html;
+                var authorList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillAuthorList(authorList);
             }
         };
     cleanAuthorFields();
@@ -21,10 +19,8 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-author-text").innerHTML = html;
+                var authorList = JSON.parse(xmlhttp.responseText);
+                fillAuthorList(authorList);
             }
         };
         cleanAuthorFields();
@@ -37,10 +33,7 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-author-text").innerHTML = html;
+              showAllAuthors();
             }
         };
         cleanAuthorFields();
@@ -56,10 +49,8 @@
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-author-text").innerHTML = html;
+                var authorList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillAuthorList(authorList);
             }
         };
         cleanAuthorFields();
@@ -75,10 +66,9 @@
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-author-text").innerHTML = html;
+
+                var authorList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillAuthorList(authorList);
             }
         };
         cleanAuthorFields();
@@ -87,3 +77,33 @@
         document.getElementById("author-id").value=1;
         document.getElementById("author-name").value="";
 }
+
+    function fillAuthorList(elements){
+        clearAuthorList();
+        var authorList = document.getElementById("author-list");
+        var i=0;
+        for (var key in elements){
+            var author= new Option(elements[key].name, elements[key].id,  false,false);
+            authorList[i++]=author;
+        }
+        document.getElementById("author-list").size=i;
+        return true;
+    }
+    function clearAuthorList() {
+        var authorList = document.getElementById("author-list");
+        while (authorList.length > 0) {
+            authorList.options[0] = null;
+        }
+        authorList.options[0] = new Option('', 0, false, false)
+
+    }
+    function selectAuthorList(){
+        var authorList = document.getElementById("author-list");
+
+        document.getElementById("author-id").value=
+            authorList.options[authorList.options.selectedIndex].value;
+        document.getElementById("author-name").value=
+            authorList.options[authorList.options.selectedIndex].text;
+        document.getElementById("book-authorId").value=
+            authorList.options[authorList.options.selectedIndex].value;
+    }

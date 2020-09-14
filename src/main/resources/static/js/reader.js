@@ -23,6 +23,7 @@ function fillReaderList(elements){
     document.getElementById("reader-list").size=i;
     return true;
 }
+//***************************
 function clearReaderList() {
     var readerList = document.getElementById("reader-list");
     while (readerList.length > 0) {
@@ -31,7 +32,10 @@ function clearReaderList() {
     readerList.options[0] = new Option('', 0, false, false)
 
 }
+//*************************
 function selectReaderList(){
     var readerList = document.getElementById("reader-list");
-    document.getElementById("card-reader-id").value=readerList.options.selectedIndex+1;
+
+    document.getElementById("card-reader-id").value=
+         readerList.options[readerList.options.selectedIndex].value;
 }
