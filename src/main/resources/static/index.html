@@ -13,7 +13,8 @@
     Library-Application
 </h1>
 
-<div class="col-xs-3 your-form-selector">
+<div class="col-xs-3 ">
+<!--    your-form-selector-->
     <form name="author" class=""><h2>Authors' handling:</h2>
         <div class="row">
             <div class="col-xs-12">
@@ -53,8 +54,7 @@
     </form>
 </div>
 
-
-<div class="col-xs-3 your-form-selector">
+<div class="col-xs-3 ">
     <form name="books"><h2>Books' handling:</h2>
         <div class="row">
             <div class="col-xs-12">
@@ -107,7 +107,8 @@
     </form>
 </div>
 
-<div class="col-xs-3 your-form-selector">
+
+<div class="col-xs-3 ">
     <form name="cards" class=""><h2>Cards' handling:</h2>
         <div class="row">
             <div class="col-xs-12">
@@ -138,13 +139,15 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <textarea id="responce-card-text" class="" rows="10"></textarea> <!--cols="80"-->
+                <select  id="card-list" class="input-group" onclick="selectCardList()">
+                    <option></option>
+                </select>
             </div>
         </div>
     </form>
 </div>
 
-<div class="col-xs-3 your-form-selector">
+<div class="col-xs-3 ">
     <form name="reader" class=""><h2>Readers' handling:</h2>
         <!--
            <div class="row">
@@ -163,8 +166,9 @@
         -->
         <div class="row">
             <div class="col-xs-12">
-                <input id="showReadersButton" type="button" value="Show Readers" onclick="showReaders()"/>
 
+                <input id="showReadersButton" type="button" value="Show Readers" onclick="showReaders()"/>
+                <input id="showReadersByButton" type="button" value="Show Readers by" onclick="showAllReadersByAuthorId()"/>
                 <!--
                     <input id="updateAuthorButton" type="button" value="Update" onclick="updateAuthor()"/>
 
@@ -185,5 +189,6 @@
         </div>
     </form>
 </div>
+
 </body>
 </html>

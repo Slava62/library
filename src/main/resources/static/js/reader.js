@@ -39,3 +39,18 @@ function selectReaderList(){
     document.getElementById("card-reader-id").value=
          readerList.options[readerList.options.selectedIndex].value;
 }
+
+function showAllReadersByAuthorId() {
+    var r_id = document.getElementById("author-id").value;
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    xmlhttp.open("GET", "/library/r/" + r_id);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // var responce = JSON.parse(xmlhttp.responseText);
+            var readerList = JSON.parse(xmlhttp.responseText);
+            fillReaderList(readerList);
+        }
+    };
+}

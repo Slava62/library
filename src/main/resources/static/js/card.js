@@ -6,10 +6,8 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-card-text").innerHTML = html;
+                var cardList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillCardList(cardList);
             }
         };
     cleanCardFields();
@@ -21,10 +19,8 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-card-text").innerHTML = html;
+                var cardList = JSON.parse(xmlhttp.responseText);
+                fillCardList(cardList);
             }
         };
         cleanCardFields();
@@ -37,10 +33,7 @@
         xmlhttp.send();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-card-text").innerHTML = html;
+               showAllCards();
             }
         };
         cleanCardFields();
@@ -56,10 +49,8 @@
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-card-text").innerHTML = html;
+                var cardList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillCardList(cardList);
             }
         };
         cleanCardFields();
@@ -75,16 +66,47 @@
 
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               // var responce = JSON.parse(xmlhttp.responseText);
-                var html = '';
-                html = html + xmlhttp.responseText;
-                document.getElementById("responce-card-text").innerHTML = html;
+                var cardList = JSON.parse("[" + xmlhttp.responseText + "]");
+                fillCardList(cardList);
             }
         };
         cleanCardFields();
     }
+
     function cleanCardFields(){
        
        document.getElementById("card-book-id").value=1;
        document.getElementById("card-reader-id").value=1;
 }
+
+//<select  id="card-list" class="input-group" onclick="selectCardList()"  card-book-id card-reader-id>
+
+    function fillCardList(elements){
+        clearCardList();
+        var cardList = document.getElementById("card-list");
+        var i=0;
+        for (var key in elements){
+            var card= new Option(elements[key].readerid, elements[key].bookid,  false,false);
+            cardList[i++]=card;
+        }
+        document.getElementById("card-list").size=i;
+        return true;
+    }
+    function clearCardList() {
+        var cardList = document.getElementById("card-list");
+        while (cardList.length > 0) {
+            cardList.options[0] = null;
+        }
+        cardList.options[0] = new Option('', 0, false, false)
+
+    }
+    function selectCardList(){
+        var cardList = document.getElementById("card-list");
+
+        document.getElementById("card-book-id").value=
+            cardList.options[cardList.options.selectedIndex].value;
+        document.getElementById("card-reader-id").value=
+            cardList.options[cardList.options.selectedIndex].text;
+        document.getElementById("book-id").value=
+            cardList.options[cardList.options.selectedIndex].value;
+    }

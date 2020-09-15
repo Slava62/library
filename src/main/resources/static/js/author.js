@@ -73,6 +73,7 @@
         };
         cleanAuthorFields();
     }
+
     function cleanAuthorFields(){
         document.getElementById("author-id").value=1;
         document.getElementById("author-name").value="";
@@ -106,4 +107,6 @@
             authorList.options[authorList.options.selectedIndex].text;
         document.getElementById("book-authorId").value=
             authorList.options[authorList.options.selectedIndex].value;
+        showAllBooksByAuthorId();
+
     }

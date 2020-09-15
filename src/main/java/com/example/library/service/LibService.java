@@ -1,24 +1,31 @@
 package com.example.library.service;
 
-import com.example.library.exception.ResourceNotFoundException;
-import com.example.library.model.Author;
+import com.example.library.model.Book;
+import com.example.library.model.Card;
+import com.example.library.model.Reader;
 import com.example.library.repository.AuthorRepository;
+import com.example.library.repository.BookRepository;
+import com.example.library.repository.CardRepository;
+import com.example.library.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
-public class AuthorService implements CRUDService<Author>{
+public class LibService{
 
     @Autowired
     AuthorRepository authorRepository;
+    @Autowired
+    BookRepository bookRepository;
+    @Autowired
+    ReaderRepository readerRepository;
+    @Autowired
+    CardRepository cardRepository;
 
-
-    @Override
+    /*@Override
     public Author create(Author author) {
         return authorRepository.save(author);
     }
@@ -62,6 +69,34 @@ public class AuthorService implements CRUDService<Author>{
             throw new ResourceNotFoundException("Record not found with id : " + authorId);
         }
 
+    }*/
+
+    public List<Book> getBooks(long authorId){
+        List<Book> temp= bookRepository.findAll();
+        List<Book> books =new ArrayList<>();
+        for (Book b:temp){
+            if(b.getAuthorId()==authorId){books.add(b);}
+        }
+        return books;
+
     }
 
+    public List<Reader> getReaders(long autorId){
+        List<Book> tempB=getBooks(autorId);
+        List<Card> tempC=cardRepository.findAll();
+        List<Reader> tempR=readerRepository.findAll();
+        List<Card> cardList= new ArrayList<>();
+        List<Reader> readers= new ArrayList<>();
+        for (Book b : tempB){
+            for( Card c:tempC){
+                if(b.getId()==c.getBookid()){cardList.add(c);}
+            }}
+        for (Card c: cardList){
+            for(Reader r:tempR){
+                if(c.getReaderid()==r.getId()){readers.add(r);
+            }
+        }
+        }
+        return readers;
+    }
 }

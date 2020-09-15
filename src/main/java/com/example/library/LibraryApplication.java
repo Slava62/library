@@ -2,9 +2,10 @@ package com.example.library;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
-//@EnableJpaRepositories
+@EnableCaching
 //@Import(RepositoryRestMvcConfiguration.class)
 public class LibraryApplication {
 
